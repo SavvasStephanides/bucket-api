@@ -43,7 +43,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
       execSync('sh ./scripts/deploy.sh')
 
       res.send({
-        filename: file.filename,
+        filename: newFileName,
         fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
       })
     }
