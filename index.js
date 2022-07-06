@@ -2,6 +2,7 @@ const express = require('express')
 const multer  = require('multer')
 const { execSync } = require('child_process');
 const fs = require("fs")
+const { v4: uuidv4 } = require('uuid');
 
 let storage = multer.diskStorage({   
     destination: function(req, file, cb) { 
@@ -35,12 +36,15 @@ app.post('/upload', upload.single('file'), (req, res) => {
         fs.mkdirSync(`./bucket/${directory}`)
       }
 
-      fs.renameSync(file.path, `./bucket/${directory}/${file.filename}`)
+      let fileExtension = file.filename.split(".").at(-1)
+      let newFileName = `${uuidv4()}.${fileExtension}`
+
+      fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
       execSync('sh ./scripts/deploy.sh')
 
       res.send({
         filename: file.filename,
-        fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${file.filename}`
+        fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
       })
     }
     else{
