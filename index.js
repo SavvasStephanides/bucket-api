@@ -24,15 +24,23 @@ app.get('/health', (req, res) => {
 
 app.post('/upload', upload.single('file'), (req, res) => {
     let accessToken = req.body.accessToken
+    console.log("Upload requested")
 
     if(accessToken === process.env.ACCESS_TOKEN){
+        console.log("Correct token")
 
       let file = req.file
       let directory = req.body.directory
+      
+      console.log("File:")
+      console.log(file)
+      
+      console.log("Cloning bucket")
 
       execSync('sh ./scripts/clone-bucket.sh')
 
       if(!fs.existsSync(`./bucket/${directory}`)){
+          console.log("Creating directory")
         fs.mkdirSync(`./bucket/${directory}`)
       }
 
