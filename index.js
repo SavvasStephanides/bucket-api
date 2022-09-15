@@ -37,10 +37,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
       execSync('sh ./scripts/clone-bucket.sh')
         res.send("Clone complete")
 
-//       if(!fs.existsSync(`./bucket/${directory}`)){
-//           console.log("Creating directory")
-//         fs.mkdirSync(`./bucket/${directory}`)
-//       }
+      if(!fs.existsSync(`./bucket/${directory}`)){
+          console.log("Creating directory")
+        fs.mkdirSync(`./bucket/${directory}`)
+      }
 
 //       let fileExtension = file.filename.split(".").at(-1)
 //       let newFileName = `${uuidv4()}.${fileExtension}`
