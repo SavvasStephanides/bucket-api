@@ -28,6 +28,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
     if(accessToken === process.env.ACCESS_TOKEN){
         console.log("Correct token")
+        res.send("Done. Correct token")
 
 //       let file = req.file
 //       let directory = req.body.directory
