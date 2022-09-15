@@ -27,14 +27,12 @@ app.post('/upload', upload.single('file'), (req, res) => {
     console.log("Upload requested")
 
     if(accessToken === process.env.ACCESS_TOKEN){
-        console.log("Correct token")
-        res.send("Done. Correct token")
 
-//       let file = req.file
-//       let directory = req.body.directory
+      let file = req.file
+      let directory = req.body.directory
       
-//       console.log("File:")
-//       console.log(file)
+      console.log(file)
+        res.send(file)
       
 //       console.log("Cloning bucket")
 
