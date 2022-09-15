@@ -40,18 +40,17 @@ app.post('/upload', upload.single('file'), (req, res) => {
         fs.mkdirSync(`./bucket/${directory}`)
       }
 
-      let fileExtension = file.filename.split(".").at(-1)
-      res.send(fileExtension)
+      let fileExtension = file.filename.split(".")[file.filename.split(".").length - 1]
         
-//       let newFileName = `${uuidv4()}.${fileExtension}`
+      let newFileName = `${uuidv4()}.${fileExtension}`
 
-//       fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
-//       execSync('sh ./scripts/deploy.sh')
+      fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
+      execSync('sh ./scripts/deploy.sh')
 
-//       res.send({
-//         filename: newFileName,
-//         fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
-//       })
+      res.send({
+        filename: newFileName,
+        fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
+      })
     }
     else{
         console.log("Wrong token")
