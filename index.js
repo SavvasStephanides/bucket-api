@@ -32,11 +32,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
       let directory = req.body.directory
       
       console.log(file)
-        res.send(file)
+        
       
-//       console.log("Cloning bucket")
-
-//       execSync('sh ./scripts/clone-bucket.sh')
+      execSync('sh ./scripts/clone-bucket.sh')
+        res.send("Clone complete")
 
 //       if(!fs.existsSync(`./bucket/${directory}`)){
 //           console.log("Creating directory")
