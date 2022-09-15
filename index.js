@@ -19,7 +19,6 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.get('/health', (req, res) => {
-    console.log("Healthcheck requested")
   res.send('ONLINE')
 })
 
@@ -30,33 +29,34 @@ app.post('/upload', upload.single('file'), (req, res) => {
     if(accessToken === process.env.ACCESS_TOKEN){
         console.log("Correct token")
 
-      let file = req.file
-      let directory = req.body.directory
+//       let file = req.file
+//       let directory = req.body.directory
       
-      console.log("File:")
-      console.log(file)
+//       console.log("File:")
+//       console.log(file)
       
-      console.log("Cloning bucket")
+//       console.log("Cloning bucket")
 
-      execSync('sh ./scripts/clone-bucket.sh')
+//       execSync('sh ./scripts/clone-bucket.sh')
 
-      if(!fs.existsSync(`./bucket/${directory}`)){
-          console.log("Creating directory")
-        fs.mkdirSync(`./bucket/${directory}`)
-      }
+//       if(!fs.existsSync(`./bucket/${directory}`)){
+//           console.log("Creating directory")
+//         fs.mkdirSync(`./bucket/${directory}`)
+//       }
 
-      let fileExtension = file.filename.split(".").at(-1)
-      let newFileName = `${uuidv4()}.${fileExtension}`
+//       let fileExtension = file.filename.split(".").at(-1)
+//       let newFileName = `${uuidv4()}.${fileExtension}`
 
-      fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
-      execSync('sh ./scripts/deploy.sh')
+//       fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
+//       execSync('sh ./scripts/deploy.sh')
 
-      res.send({
-        filename: newFileName,
-        fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
-      })
+//       res.send({
+//         filename: newFileName,
+//         fullPath: `https://savvasstephanides.github.io/bucket/${directory}/${newFileName}`
+//       })
     }
     else{
+        console.log("Wrong token")
       res.send("Cannot send")
     }
 })
