@@ -38,9 +38,9 @@ app.post('/upload', upload.single('file'), (req, res) => {
         res.send("Clone complete")
 
       if(!fs.existsSync(`./bucket/${directory}`)){
-          console.log("Creating directory")
         fs.mkdirSync(`./bucket/${directory}`)
       }
+        res.send("Done!")
 
 //       let fileExtension = file.filename.split(".").at(-1)
 //       let newFileName = `${uuidv4()}.${fileExtension}`
