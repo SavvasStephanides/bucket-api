@@ -39,9 +39,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
       if(!fs.existsSync(`./bucket/${directory}`)){
         fs.mkdirSync(`./bucket/${directory}`)
       }
-        res.send("Done!")
 
-//       let fileExtension = file.filename.split(".").at(-1)
+      let fileExtension = file.filename.split(".").at(-1)
+      res.send(fileExtension)
+        
 //       let newFileName = `${uuidv4()}.${fileExtension}`
 
 //       fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
