@@ -35,7 +35,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
         
       
       execSync('sh ./scripts/clone-bucket.sh')
-        res.send("Clone complete")
 
       if(!fs.existsSync(`./bucket/${directory}`)){
         fs.mkdirSync(`./bucket/${directory}`)
