@@ -24,19 +24,24 @@ app.get('/health', (req, res) => {
 
 app.post('/upload', upload.single('file'), (req, res) => {
     let accessToken = req.body.accessToken
+    console.log("Upload requested")
 
     if(accessToken === process.env.ACCESS_TOKEN){
 
       let file = req.file
       let directory = req.body.directory
-
+      
+      console.log(file)
+        
+      
       execSync('sh ./scripts/clone-bucket.sh')
 
       if(!fs.existsSync(`./bucket/${directory}`)){
         fs.mkdirSync(`./bucket/${directory}`)
       }
 
-      let fileExtension = file.filename.split(".").at(-1)
+      let fileExtension = file.filename.split(".")[file.filename.split(".").length - 1]
+        
       let newFileName = `${uuidv4()}.${fileExtension}`
 
       fs.renameSync(file.path, `./bucket/${directory}/${newFileName}`)
@@ -48,6 +53,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
       })
     }
     else{
+        console.log("Wrong token")
       res.send("Cannot send")
     }
 })
